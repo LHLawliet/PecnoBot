@@ -1,0 +1,44 @@
+{
+    "information": {
+        "creator": "LH_Lawliet",
+        "version": "0.0.2",
+        "changelog": {
+            "0.0.1": "Basic almanax fonction, +infoGuilde, +crédit",
+            "0.0.2": "add !chemin fonction with all zap"
+        }
+    },
+
+    "config": {
+        "guilde": "Hapax",
+        "server": "Brumen",
+        "sendAlmanax": true,
+        "AlmanaxChannelName": "almanax"
+    },
+
+    "zaap": [
+        { "pos": { "x": 4, "y": -19 }, "name": "Astrub", "id": 84674563 },
+        { "pos": { "x": -32, "y": -56 }, "name": "Bonta", "id": 147768 },
+        { "pos": { "x": -26, "y": 35 }, "name": "Brâkmar", "id": 144419 },
+        { "pos": { "x": -1, "y": 13 }, "name": "Amakna (Bord de la forêt maléfique)", "id": 88212746 },
+        { "pos": { "x": 3, "y": -5 }, "name": "Amakna (Château d'Amakna)", "id": 68552706 },
+        { "pos": { "x": 5, "y": 7 }, "name": "Amakna (Coins des Bouftous)", "id": 88082704 },
+        { "pos": { "x": 7, "y": -4 }, "name": "Amakna (Port de Madrestam)", "id": 68419587 },
+        { "pos": { "x": -2, "y": 0 }, "name": "Amakna (Village d'Amakna)", "id": 88213271 },
+        { "pos": { "x": 10, "y": 22 }, "name": "Baie de Sufokia (Rivage Sufokien)", "id": 88085249 },
+        { "pos": { "x": 13, "y": 26 }, "name": "Baie de Sufokia (Sufokia)", "id": 95422468 },
+        { "pos": { "x": -46, "y": 18 }, "name": "Île d'Otomaïl (Village côtier)", "id": 154642 },
+        { "pos": { "x": -79, "y": -41 }, "name": "Île de Frigost (La Bourgade)", "id": 54172969 },
+        { "pos": { "x": -77, "y": -73 }, "name": "Île de Frigost (Village enseveli)", "id": 54172489 },
+        { "pos": { "x": 35, "y": 12 }, "name": "Île de Moon (Plage de la Tortue)", "id": 156762120 },
+        { "pos": { "x": -16, "y": 1 }, "name": "Montagne des Koalaks (Village des Eleveurs)", "id": 73400320 },
+        { "pos": { "x": 26, "y": -37 }, "name": "Pandala Neutre (Faubourgs de Pandala)", "id": 13605 },
+        { "pos": { "x": -27, "y": -36 }, "name": "Plaine de Cania (Champs de Cania)", "id": 142087694 },
+        { "pos": { "x": -3, "y": 42 }, "name": "Plaine de Cania (Lac de Cania)", "id": 156240386 },
+        { "pos": { "x": -13, "y": 28 }, "name": "Plaine de Cania (Massif de Cania)", "id": 165152263 },
+        { "pos": { "x": -5, "y": -23 }, "name": "Plaine de Cania (Plaine des Porkass)", "id": 84806401 },
+        { "pos": { "x": -17, "y": -47 }, "name": "Plaine de Cania (Plaines Rocheuses)", "id": 147590153 },
+        { "pos": { "x": -20, "y": -20 }, "name": "Plaine de Cania (Route Rocailleuse)", "id": 164364304 },
+        { "pos": { "x": 29, "y": -49 }, "name": "Pandala Feu (Village de Feudala)", "id": 15153 },
+        { "pos": { "x": 15, "y": -58 }, "name": "Saharach (Dunes des ossements)", "id": 173278210 }
+    ]
+}
