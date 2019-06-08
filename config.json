@@ -9,8 +9,9 @@
     },
 
     "config": {
-        "guilde": "Hapax",
-        "server": "Brumen",
+        "token": "",
+        "guilde": "",
+        "server": "",
         "sendAlmanax": true,
         "AlmanaxChannelName": "almanax"
     },

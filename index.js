@@ -5,6 +5,7 @@ const config = require('./config.json');
 const client = new Discord.Client();
 let oldAlmanax = null;
 
+client.login(config.config.token);
 
 client.on('ready', () => {
     console.log(config.config.guilde);
@@ -103,7 +104,7 @@ client.on('message', msg => {
     }
 });
 
-client.login('MzkzODQyNDkwODQwNzExMTc4.XO_6uQ.Cb-oZitbOfSkm3A7e3T2b6CJDGs');
+
 
 
 
