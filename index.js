@@ -205,4 +205,4 @@ function setAlmanax() {
     setTimeout(setAlmanax, 1500000);
 }
 
-//setTimeout(setAlmanax, 1500);
+setTimeout(setAlmanax, 1500);
