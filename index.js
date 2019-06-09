@@ -1,14 +1,44 @@
 const Discord = require('discord.js');
 const cheerio = require('cheerio');
 const request = require('request');
+const mysql = require('mysql');
 const config = require('./config.json');
+
 const client = new Discord.Client();
 let oldAlmanax = null;
 
 client.login(config.config.token);
 
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "PecnoBot"
+});
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected to mysql");
+});
+
 client.on('ready', () => {
-    console.log(config.config.guilde);
+    console.log("Connected to discord");
+    setTimeout(setAlmanax, 1500);
+});
+
+client.on('guildCreate', guild => {
+    console.log("Connected to a new server");
+    GuildId = guild.id
+    let sql = "SELECT * FROM serverconfig WHERE ServerId=" + GuildId.toString()
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        if (!result[0]) {
+            sql = "INSERT INTO serverconfig (ServerId) VALUES (" + GuildId + ")";
+            con.query(sql, function(err, result) {
+                if (err) throw err;
+            });
+        }
+    });
 });
 
 client.on('message', msg => {
@@ -57,12 +87,70 @@ client.on('message', msg => {
                     },
                 ]
             }
-
             msg.channel.send({ embed: embeds });
         });
     }
+
+
+    if (msg.content === '!SetupAlmanax') {
+        let channelId = msg.channel.id.toString()
+        let guildId = msg.guild.id.toString()
+        let sql = "UPDATE serverconfig SET almanax = " + channelId.toString() + " WHERE ServerId = " + guildId;
+        con.query(sql, function(err, result) {
+            if (err) throw err;
+            msg.channel.send("Channel Almanax configuré")
+        })
+    }
+
+    if (msg.content === '!test') {
+        console.log("test")
+        let sql = "SELECT * FROM serverconfig"
+        con.query(sql, function(err, result) {
+            if (err) throw err;
+            for (var i = 0; i < Object.keys(result).length; i++) {
+                if (result[i].almanax != 'false') {
+                    let almanax = result[i].almanax
+                    console.log(almanax)
+                    client.channels.get(almanax).send("almanax activé")
+                }
+            }
+        });
+    }
+
+    if (msg.content === '!DisableAlmanax') {
+        let guildId = msg.guild.id
+        let sql = "UPDATE serverconfig SET almanax = 'false' WHERE ServerId = " + guildId;
+        con.query(sql, function(err, result) {
+            if (err) throw err;
+            msg.channel.send("Notification Almanax désactivé")
+        })
+    }
+
+    if (msg.content.startsWith('!SetupGuilde')) {
+        let args = msg.content.slice(1).trim().split(/ +/g);
+
+        let guild = args[1];
+        let server = args[2];
+
+        if ((guild) && (server)) {
+            let guildId = msg.guild.id;
+            let sql = "UPDATE serverconfig SET guild = '" + guild + "', server = '" + server + "' WHERE ServerId = " + guildId;
+            con.query(sql, function(err, result) {
+                if (err) throw err;
+                msg.channel.send("Guilde configuré")
+            })
+        } else {
+            msg.channel.send("Merci d'écrire le message sous cette forme : !SetupGuilde NomDeLaGuilde ServeurDofus")
+        }
+
+    }
+
+
+
+
     if ((msg.content === '!guilde') || (msg.content === '!name') || (msg.content === '!nom') || (msg.content === '!server') || (msg.content === '!serv')) {
-        msg.reply("guilde : " + config.config.guilde + ", serveur : " + config.config.server);
+        let info = CheckIfServExist(GuildId);
+        msg.reply("guilde : " + info[0].guild + ", serveur : " + info[0].server);
     }
     if ((msg.content === '!credit') || (msg.content === '!crédit')) {
         msg.reply("développé par : " + config.information.creator + " version : " + config.information.version);
@@ -173,36 +261,39 @@ function setAlmanax() {
 
         if (oldAlmanax != nomquete) {
             client.user.setActivity("Almanax : " + quete + "(!almanax)", { type: 0, url: "http://www.krosmoz.com/fr/almanax" })
-            client.user.setAvatar(urlobject)
-            if ((config.config.sendAlmanax == true) && (oldAlmanax != null)) {
-                let embeds = {
-                    "color": 65313,
-                    "thumbnail": {
-                        "url": urlobject
-                    },
-                    "footer": {
-                        "text": "http://www.krosmoz.com/"
-                    },
-                    "fields": [{
-                            "name": nomquete,
-                            "value": quete,
-                        },
+                //client.user.setAvatar(urlobject)
+            let sql = "SELECT * FROM serverconfig"
+            con.query(sql, function(err, result) {
+                if (err) throw err;
+                for (var i = 0; i < Object.keys(result).length; i++) {
+                    if (result[i].almanax != 'false') {
+                        let almanax = result[i].almanax
+                        console.log(almanax)
+                        let embeds = {
+                            "color": 65313,
+                            "thumbnail": {
+                                "url": urlobject
+                            },
+                            "footer": {
+                                "text": "http://www.krosmoz.com/"
+                            },
+                            "fields": [{
+                                    "name": nomquete,
+                                    "value": quete,
+                                },
 
-                        {
-                            "name": "Bonus du jour",
-                            "value": bonus,
-                        },
-                    ]
+                                {
+                                    "name": "Bonus du jour",
+                                    "value": bonus,
+                                },
+                            ]
+                        }
+                        client.channels.get(almanax).send({ embed: embeds })
+                    }
                 }
-                let channel = client.channels.find('name', config.config.AlmanaxChannelName)
-                if (channel) {
-                    channel.send({ embed: embeds })
-                }
-            }
+            });
         }
         omdAlmanax = nomquete;
     });
     setTimeout(setAlmanax, 1500000);
 }
-
-setTimeout(setAlmanax, 1500);

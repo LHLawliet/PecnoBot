@@ -4,16 +4,13 @@
         "version": "0.0.2",
         "changelog": {
             "0.0.1": "Basic almanax fonction, +infoGuilde, +crédit",
-            "0.0.2": "add !chemin fonction with all zap"
+            "0.0.2": "add !chemin fonction with all zap",
+            "0.0.3": "basic database + mutliserver"
         }
     },
 
     "config": {
-        "token": "",
-        "guilde": "",
-        "server": "",
-        "sendAlmanax": true,
-        "AlmanaxChannelName": "almanax"
+        "token": ""
     },
 
     "zaap": [
