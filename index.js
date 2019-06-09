@@ -29,12 +29,12 @@ client.on('ready', () => {
 client.on('guildCreate', guild => {
     console.log("Connected to a new server");
     GuildId = guild.id
-    let sql = "SELECT * FROM serverconfig WHERE ServerId=" + GuildId.toString()
-    con.query(sql, function(err, result) {
+    let sql = "SELECT * FROM serverconfig WHERE ServerId=?"
+    con.query(sql, [GuildId.toString()], function(err, result) {
         if (err) throw err;
         if (!result[0]) {
-            sql = "INSERT INTO serverconfig (ServerId) VALUES (" + GuildId + ")";
-            con.query(sql, function(err, result) {
+            sql = "INSERT INTO serverconfig (ServerId) VALUES (?)";
+            con.query(sql, [GuildId.toString()], function(err, result) {
                 if (err) throw err;
             });
         }
@@ -95,8 +95,8 @@ client.on('message', msg => {
     if (msg.content === '!SetupAlmanax') {
         let channelId = msg.channel.id.toString()
         let guildId = msg.guild.id.toString()
-        let sql = "UPDATE serverconfig SET almanax = " + channelId.toString() + " WHERE ServerId = " + guildId;
-        con.query(sql, function(err, result) {
+        let sql = "UPDATE serverconfig SET almanax = ? WHERE ServerId = ?";
+        con.query(sql, [channelId.toString(), guildId], function(err, result) {
             if (err) throw err;
             msg.channel.send("Channel Almanax configuré")
         })
@@ -119,8 +119,8 @@ client.on('message', msg => {
 
     if (msg.content === '!DisableAlmanax') {
         let guildId = msg.guild.id
-        let sql = "UPDATE serverconfig SET almanax = 'false' WHERE ServerId = " + guildId;
-        con.query(sql, function(err, result) {
+        let sql = "UPDATE serverconfig SET almanax = 'false' WHERE ServerId = ?";
+        con.query(sql, [guildId], function(err, result) {
             if (err) throw err;
             msg.channel.send("Notification Almanax désactivé")
         })
@@ -134,8 +134,9 @@ client.on('message', msg => {
 
         if ((guild) && (server)) {
             let guildId = msg.guild.id;
-            let sql = "UPDATE serverconfig SET guild = '" + guild + "', server = '" + server + "' WHERE ServerId = " + guildId;
-            con.query(sql, function(err, result) {
+            //let sql = "UPDATE serverconfig SET guild = '" + guild + "', server = '" + server + "' WHERE ServerId = " + guildId;
+            let sql = "UPDATE serverconfig SET guild = ?, server = ? WHERE ServerId = ?";
+            con.query(sql, [guild, server, guildId], function(err, result) {
                 if (err) throw err;
                 msg.channel.send("Guilde configuré")
             })
@@ -145,12 +146,13 @@ client.on('message', msg => {
 
     }
 
-
-
-
     if ((msg.content === '!guilde') || (msg.content === '!name') || (msg.content === '!nom') || (msg.content === '!server') || (msg.content === '!serv')) {
-        let info = CheckIfServExist(GuildId);
-        msg.reply("guilde : " + info[0].guild + ", serveur : " + info[0].server);
+        let GuildId = msg.guild.id
+        let sql = "SELECT * FROM serverconfig WHERE ServerId=?"
+        con.query(sql, [GuildId.toString()], function(err, result) {
+            if (err) throw err;
+            msg.reply("guilde : " + result[0].guild + ", serveur : " + result[0].server);
+        });
     }
     if ((msg.content === '!credit') || (msg.content === '!crédit')) {
         msg.reply("développé par : " + config.information.creator + " version : " + config.information.version);
