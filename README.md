@@ -21,6 +21,7 @@ An "automatic way" gonna be had, for the moment write,
 ## How to install the bot
 
 If you wanna install the bot on your computer or on a server, you had to install node.js with these "plugin":
+
 	- discord.js
 	- cheerio
 	- request
