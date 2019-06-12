@@ -1,17 +1,12 @@
-# PecnoBot
-Discord bot for Dofus game, in node.js
+# Welcome to PecnoBot!
 
-wip readme.md
+Hi! This is a discord bot for the multiplayer game Dofus in Node.js, this bot in in development
 
-WARNING! : some part can be similar to KaellyBot 'https://github.com/Kaysoro/KaellyBot'
+**WARNING! : some part can be inspired by KaellyBot [https://github.com/Kaysoro/KaellyBot]**
 
-To use the bot, you need node.js with some lib, 
-  - discord.js
-  - cheerio
-  - request
-  - mysql
-  
-You had to configure the bot in config.json and add the information like this :
-   "token": "your discord bot token",
-   
-You had to setup the mysql database
+## How to invite the bot
+
+If you just wanna add this bot to your discord server you can press the follow button 
+[button url="https://discordapp.com/oauth2/authorize?&client_id=393842490840711178&scope=bot&permissions=0"]
+
+You can help the project here [button url="paypal.me/LHLawliet"]
