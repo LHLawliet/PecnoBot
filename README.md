@@ -7,9 +7,9 @@ Hi! This is a discord bot for the multiplayer game Dofus in Node.js, this bot in
 ## How to invite the bot
 
 If you just wanna add this bot to your discord server you can press the follow url
-https://discordapp.com/oauth2/authorize?&client_id=393842490840711178&scope=bot&permissions=0
+[Invite link](https://discordapp.com/oauth2/authorize?&client_id=393842490840711178&scope=bot&permissions=0)
 
-Help the project : (paypal.me/LHLawliet)
+Help the project : [Paypal](paypal.me/LHLawliet)
 
 ## How to configure the bot
 
@@ -26,3 +26,8 @@ If you wanna install the bot on your computer or on a server, you had to install
 	- request
 	- mysql
 And you had to setup the mysql database
+
+
+
+
+
